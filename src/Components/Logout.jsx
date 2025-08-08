@@ -1,8 +1,18 @@
-import React from 'react'
+import { getAuth, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom';
 
 const Logout = () => {
+  const navigate = useNavigate();
+  const handleLogoutClick = () => {
+    const auth = getAuth();
+    signOut(auth)
+    .then(()=> {
+      navigate("/")
+      }
+    )
+  }
   return (
-    <div>Logout</div>
+    <button onClick={handleLogoutClick}>ログアウト</button>
   )
 }
 

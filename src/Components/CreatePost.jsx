@@ -7,7 +7,8 @@ const CreatePost = () => {
   const db = getFirestore();
   const postsCollectionRef = collection(db, 'posts');
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const newPost = {
       title,
       content,
@@ -15,10 +16,11 @@ const CreatePost = () => {
     }
     try {
       await addDoc(postsCollectionRef, newPost);
-      alert("投稿完了しました！")
+      alert("投稿完了しました！");
+      setTitle(""),setContent("");
     } catch (error) {
       console.error(error);
-    }
+    };
   }
 
   return (

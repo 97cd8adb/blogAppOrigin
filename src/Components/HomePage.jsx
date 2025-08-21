@@ -2,6 +2,7 @@ import { collection, deleteDoc, onSnapshot, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import './HomePage.css';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -23,9 +24,9 @@ const HomePage = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <>
+    <div className="posts-container">
     {posts.map(post => (
-      <div key={post.id}>
+      <div key={post.id} className="post">
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         {post.uid === auth.currentUser?.uid &&(
@@ -33,7 +34,7 @@ const HomePage = () => {
         )}
       </div>
     ))}
-    </>
+    </div>
   )
 }
 

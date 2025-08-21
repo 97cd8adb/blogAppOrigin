@@ -12,9 +12,9 @@ import Logout from './Components/Logout'
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect( ()=> {
+  useEffect(()=> {
   const auth = getAuth();
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
+  const unsubscribe = onAuthStateChanged (auth, (user) => {
     setIsLoggedIn(!!user);
   })
   return () => unsubscribe();

@@ -2,16 +2,20 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({setIsLoggedin}) => {
   const navigate = useNavigate();
-  const handleLoginClick = () => {
+  const handleLoginClick = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then(() => {
-      navigate("/")
-      }
-    )
-  }
+      try {
+        await signInWithPopup(auth, provider);
+        setIsLoggedin(true);
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+        alert("ログインに失敗しました")
+      }  
+    };
   return (
     <button onClick={handleLoginClick}>ログイン</button>
   )

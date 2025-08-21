@@ -28,7 +28,7 @@ const HomePage = () => {
       <div key={post.id}>
         <h2>{post.title}</h2>
         <p>{post.content}</p>
-        {post.uid === auth.currentUser ?.uid &&(
+        {post.uid === auth.currentUser?.uid &&(
           <button onClick={() => deletePost(post.id)}>削除</button>
         )}
       </div>

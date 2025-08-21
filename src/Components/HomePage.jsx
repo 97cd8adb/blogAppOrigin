@@ -6,14 +6,19 @@ import './HomePage.css';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
-  const db = getFirestore();
-  const postsCollectionRef = collection(db, 'posts');
   const auth = getAuth();
+  const db = getFirestore();
   const deletePost = async (postId) => {
     const docRef = doc(db, "posts", postId);
-    await deleteDoc(docRef)
+    try{
+      await deleteDoc(docRef)
+     }
+     catch (error) {
+      console.error(error);
+    };
   };
   useEffect(() => {
+    const postsCollectionRef = collection(db, 'posts');
     const unsubscribe = onSnapshot(postsCollectionRef, (snapshot) => {
       const postsData = snapshot.docs.map(doc => ({
         id : doc.id,

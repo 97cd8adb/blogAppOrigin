@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { addDoc, collection, getFirestore,  } from 'firebase/firestore';
+import { addDoc, collection, getFirestore, } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -9,10 +10,12 @@ const CreatePost = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const auth = getAuth();
     const newPost = {
       title,
       content,
       createdAt: new Date(),
+      uid: auth.currentUser.uid
     }
     try {
       await addDoc(postsCollectionRef, newPost);

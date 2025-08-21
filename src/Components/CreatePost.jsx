@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { addDoc, collection, getFirestore, } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import "./CreatePost.css"
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] =useState("");
   const db = getFirestore();
   const postsCollectionRef = collection(db, 'posts');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,15 +27,20 @@ const CreatePost = () => {
     } catch (error) {
       console.error(error);
     };
+    navigate("/")
   }
 
   return (
     < >
     <form onSubmit={handleSubmit}>
       <div>
+        <h1>投稿してみよう！</h1>
+      </div>
+      <div>
         <input
           onChange={(e) => {setTitle(e.target.value)}} 
           type="text"
+          placeholder='タイトルを入力'
           value={title}/>
       </div>
       <div>
